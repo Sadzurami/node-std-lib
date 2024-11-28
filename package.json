@@ -1,0 +1,43 @@
+{
+  "name": "@sadzurami/std-lib",
+  "version": "0.0.0",
+  "description": "Standard library for my projects",
+  "author": "Sadzurami (https://github.com/Sadzurami)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sadzurami/node-std-lib"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "del-cli dist && tsc",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "p-queue": "^6"
+  },
+  "devDependencies": {
+    "@sadzurami/eslint-config": "^1.0.1",
+    "@sadzurami/prettier-config": "^1.0.0",
+    "@sadzurami/ts-config": "^1.0.1",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^18",
+    "del-cli": "^6.0.0",
+    "eslint": "^8",
+    "prettier": "^3.4.1",
+    "typescript": "^5.5.4"
+  },
+  "keywords": [
+    "std-lib",
+    "standard-library"
+  ],
+  "sideEffects": false
+}
