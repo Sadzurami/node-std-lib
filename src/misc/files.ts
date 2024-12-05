@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
+import readPkgUp from 'read-pkg-up';
 
 import { ReadConfigOptions } from './types/read.config.options.type';
 import { ReadProxiesOptions } from './types/read.proxies.options.type';
@@ -50,4 +51,12 @@ export async function readConfig<T>(file: string, _default: T, options?: ReadCon
   } catch (error) {}
 
   return { ...config, origin: config.origin || 'default' };
+}
+
+export async function readPackageJson(options?: readPkgUp.NormalizeOptions) {
+  try {
+    return (await readPkgUp(options)).packageJson;
+  } catch (error) {
+    throw new Error('Failed to read package.json', { cause: error });
+  }
 }

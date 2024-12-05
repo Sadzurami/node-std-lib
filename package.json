@@ -22,7 +22,8 @@
   },
   "dependencies": {
     "fs-extra": "^11.2.0",
-    "p-queue": "^6"
+    "p-queue": "^6",
+    "read-pkg-up": "^7"
   },
   "devDependencies": {
     "@sadzurami/eslint-config": "^1.0.1",
