@@ -16,6 +16,18 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    "./misc": {
+      "require": "./dist/misc/index.js",
+      "import": "./dist/misc/index.js",
+      "types": "./dist/misc/index.d.ts"
+    },
+    "./steam": {
+      "require": "./dist/steam/index.js",
+      "import": "./dist/steam/index.js",
+      "types": "./dist/steam/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "del-cli dist && tsc",
     "prepare": "npm run build"
