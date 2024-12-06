@@ -22,6 +22,11 @@
       "import": "./dist/misc/index.js",
       "types": "./dist/misc/index.d.ts"
     },
+    "./files": {
+      "require": "./dist/files/index.js",
+      "import": "./dist/files/index.js",
+      "types": "./dist/files/index.d.ts"
+    },
     "./steam": {
       "require": "./dist/steam/index.js",
       "import": "./dist/steam/index.js",
