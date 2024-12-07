@@ -17,10 +17,15 @@
     "dist"
   ],
   "exports": {
-    "./misc": {
-      "require": "./dist/misc/index.js",
-      "import": "./dist/misc/index.js",
-      "types": "./dist/misc/index.d.ts"
+    "./config": {
+      "require": "./dist/config/index.js",
+      "import": "./dist/config/index.js",
+      "types": "./dist/config/index.d.ts"
+    },
+    "./process": {
+      "require": "./dist/process/index.js",
+      "import": "./dist/process/index.js",
+      "types": "./dist/process/index.d.ts"
     },
     "./files": {
       "require": "./dist/files/index.js",
@@ -31,6 +36,11 @@
       "require": "./dist/steam/index.js",
       "import": "./dist/steam/index.js",
       "types": "./dist/steam/index.d.ts"
+    },
+    "./proxy": {
+      "require": "./dist/proxy/index.js",
+      "import": "./dist/proxy/index.js",
+      "types": "./dist/proxy/index.d.ts"
     }
   },
   "scripts": {
@@ -50,7 +60,7 @@
     "@types/node": "^18",
     "del-cli": "^6.0.0",
     "eslint": "^8",
-    "prettier": "^3.4.1",
+    "prettier": "^3.4.2",
     "typescript": "^5.5.4"
   },
   "keywords": [
