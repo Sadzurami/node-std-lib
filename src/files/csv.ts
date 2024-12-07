@@ -12,6 +12,7 @@ export async function readCsv<T>(file: string, options?: ReadCsvOptions): Promis
   } catch (error) {}
 
   const [header, ...entries] = content.split(/\r?\n/);
+  if (!header?.length || !entries.length) return [];
 
   const keys: string[] = header.split(';').map((key) => key.trim());
   const data: T[] = [];

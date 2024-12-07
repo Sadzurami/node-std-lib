@@ -1,31 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
-import readPkgUp from 'read-pkg-up';
 
 import { ReadConfigOptions } from './types/read.config.options.type';
-import { ReadProxiesOptions } from './types/read.proxies.options.type';
-
-export async function readProxies(file: string, options?: ReadProxiesOptions): Promise<string[]> {
-  options = { ensure: true, ...options };
-
-  let content: string = '';
-  try {
-    if (options.ensure) await fs.ensureFile(file);
-    content = await fs.readFile(file, 'utf-8');
-  } catch (error) {}
-
-  const proxies: Set<string> = new Set();
-
-  for (const line of content.split(/\r?\n/)) {
-    try {
-      const proxy = new URL(line.trim()).toString().slice(0, -1);
-
-      proxies.add(proxy);
-    } catch (error) {}
-  }
-
-  return [...proxies.values()];
-}
 
 export async function readConfig<T>(file: string, _default: T, options?: ReadConfigOptions) {
   options = { ensure: true, ...options };
@@ -51,12 +27,4 @@ export async function readConfig<T>(file: string, _default: T, options?: ReadCon
   } catch (error) {}
 
   return { ...config, origin: config.origin || 'default' };
-}
-
-export async function readPackageJson(options?: readPkgUp.NormalizeOptions) {
-  try {
-    return (await readPkgUp(options)).packageJson;
-  } catch (error) {
-    throw new Error('Failed to read package.json', { cause: error });
-  }
 }
