@@ -9,14 +9,23 @@ export class Semaphore {
     this.queue = new PQueue({ ...options, intervalCap: options.concurrency });
   }
 
+  /**
+   * Returns `true` if semaphore is free, `false` otherwise.
+   */
   public get free() {
     return this.queue.size === 0;
   }
 
+  /**
+   * Returns the number of enqueued tasks.
+   */
   public get size() {
     return this.queue.size + this.queue.pending;
   }
 
+  /**
+   * Returns `true` if semaphore is paused, `false` otherwise.
+   */
   public get paused() {
     return this.queue.isPaused;
   }
