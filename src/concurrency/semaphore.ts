@@ -4,7 +4,7 @@ import { SemaphoreOptions } from './types/semaphore.options.type';
 export class Semaphore {
   public readonly queue: PQueue;
 
-  constructor(options: SemaphoreOptions) {
+  constructor(options: SemaphoreOptions = {}) {
     options = { concurrency: 1, interval: 0, ...options };
     this.queue = new PQueue({ ...options, intervalCap: options.concurrency });
   }
