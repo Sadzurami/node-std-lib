@@ -17,6 +17,11 @@
     "dist"
   ],
   "exports": {
+    "./concurrency": {
+      "require": "./dist/concurrency/index.js",
+      "import": "./dist/concurrency/index.js",
+      "types": "./dist/concurrency/index.d.ts"
+    },
     "./config": {
       "require": "./dist/config/index.js",
       "import": "./dist/config/index.js",
