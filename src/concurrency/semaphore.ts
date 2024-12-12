@@ -2,7 +2,7 @@ import PQueue from 'p-queue';
 import { SemaphoreOptions } from './types/semaphore.options.type';
 
 export class Semaphore {
-  public readonly queue: PQueue;
+  private readonly queue: PQueue;
 
   constructor(options: SemaphoreOptions = {}) {
     options = { concurrency: 1, interval: 0, ...options };
