@@ -5,10 +5,12 @@ import path from 'path';
 import { Account } from './interfaces/account.interface';
 import { Secret } from './interfaces/secret.interface';
 import { Session } from './interfaces/session.interface';
-import { MoveSessionOptions } from './types/move.session.options.type';
-import { ReadAccountsOptions } from './types/read.accounts.options.type';
-import { ReadSecretsOptions } from './types/read.secrets.options.type';
-import { ReadSessionsOptions } from './types/read.sessions.options.type';
+import {
+  MoveSessionOptions,
+  ReadAccountsOptions,
+  ReadSecretsOptions,
+  ReadSessionsOptions,
+} from './types/resources.types';
 
 export async function readSessions(dir: string, options?: ReadSessionsOptions): Promise<Session[]> {
   options = { ensure: true, ...options };

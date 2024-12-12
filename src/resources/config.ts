@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 
-import { ReadConfigOptions } from './types/read.config.options.type';
+import { ReadConfigOptions } from './types/config.types';
 
 export async function readConfig<T>(file: string, _default: T, options?: ReadConfigOptions) {
   options = { ensure: true, ...options };

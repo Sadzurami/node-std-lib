@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 
-import { ReadCsvOptions } from './types/read.csv.options.type';
+import { ReadCsvOptions } from './types/csv.types';
 
 export async function readCsv<T>(file: string, options?: ReadCsvOptions): Promise<T[]> {
   options = { ensure: true, convert: true, ...options };

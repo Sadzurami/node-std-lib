@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 
-import { ReadProxiesOptions } from './types/read.proxies.options.type';
+import { ReadProxiesOptions } from './types/proxies.types';
 
 export async function readProxies(file: string, options?: ReadProxiesOptions): Promise<string[]> {
   options = { ensure: true, ...options };

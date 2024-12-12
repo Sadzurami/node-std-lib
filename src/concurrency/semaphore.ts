@@ -1,5 +1,5 @@
 import PQueue from 'p-queue';
-import { SemaphoreOptions } from './types/semaphore.options.type';
+import { SemaphoreOptions } from './types/semaphore.types';
 
 export class Semaphore {
   private readonly queue: PQueue;

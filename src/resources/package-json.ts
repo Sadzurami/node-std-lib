@@ -1,8 +1,8 @@
 import readPkgUp from 'read-pkg-up';
 
-import { ReadPackageJsonOptions } from './types/read.package.json.options.type';
+import { ReadPackageJsonOptions, ReadPackageJsonResult } from './types/package-json.types';
 
-export async function readPackageJson(options?: ReadPackageJsonOptions) {
+export async function readPackageJson(options?: ReadPackageJsonOptions): Promise<ReadPackageJsonResult> {
   options = { cwd: process.cwd(), normalize: true, ...options };
 
   try {

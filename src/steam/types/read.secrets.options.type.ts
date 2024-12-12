@@ -1,8 +1,0 @@
-export type ReadSecretsOptions = {
-  /**
-   * Ensures that the directory exists.
-   *
-   * @default true
-   */
-  ensure?: boolean;
-};

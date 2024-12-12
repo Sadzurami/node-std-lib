@@ -1,3 +1,3 @@
 export * from './semaphore';
 
-export * from './types/semaphore.options.type';
+export * from './types/semaphore.types';

@@ -22,30 +22,20 @@
       "import": "./dist/concurrency/index.js",
       "types": "./dist/concurrency/index.d.ts"
     },
-    "./config": {
-      "require": "./dist/config/index.js",
-      "import": "./dist/config/index.js",
-      "types": "./dist/config/index.d.ts"
+    "./resources": {
+      "require": "./dist/resources/index.js",
+      "import": "./dist/resources/index.js",
+      "types": "./dist/resources/index.d.ts"
     },
     "./process": {
       "require": "./dist/process/index.js",
       "import": "./dist/process/index.js",
       "types": "./dist/process/index.d.ts"
     },
-    "./files": {
-      "require": "./dist/files/index.js",
-      "import": "./dist/files/index.js",
-      "types": "./dist/files/index.d.ts"
-    },
     "./steam": {
       "require": "./dist/steam/index.js",
       "import": "./dist/steam/index.js",
       "types": "./dist/steam/index.d.ts"
-    },
-    "./proxy": {
-      "require": "./dist/proxy/index.js",
-      "import": "./dist/proxy/index.js",
-      "types": "./dist/proxy/index.d.ts"
     }
   },
   "scripts": {
