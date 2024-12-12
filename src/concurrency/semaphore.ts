@@ -1,7 +1,7 @@
 import PQueue from 'p-queue';
 import { SemaphoreOptions } from './types/semaphore.options.type';
 
-export default class Semaphore {
+export class Semaphore {
   public readonly queue: PQueue;
 
   constructor(options: SemaphoreOptions) {
