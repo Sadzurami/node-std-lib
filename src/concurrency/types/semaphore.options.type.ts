@@ -7,7 +7,7 @@ export type SemaphoreOptions = {
   concurrency?: number;
 
   /**
-   * The length of time in milliseconds before the interval count resets.
+   * Minimum amount of time in milliseconds between each tasks.
    *
    * @default 0
    */

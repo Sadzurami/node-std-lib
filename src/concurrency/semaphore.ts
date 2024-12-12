@@ -9,34 +9,36 @@ export default class Semaphore {
     this.queue = new PQueue({ ...options, intervalCap: options.concurrency });
   }
 
-  public get size() {
-    return this.queue.size + this.queue.pending;
-  }
-
   public get free() {
     return this.queue.size === 0;
+  }
+
+  public get size() {
+    return this.queue.size + this.queue.pending;
   }
 
   public get paused() {
     return this.queue.isPaused;
   }
 
-  public get pending() {
-    return this.queue.pending === 0;
-  }
-
+  /**
+   * Put semaphore on hold.
+   */
   public pause() {
     this.queue.pause();
   }
 
+  /**
+   * Resumes semaphore.
+   */
   public resume() {
     this.queue.start();
   }
 
   /**
-   * Waits for the semaphore to be available.
+   * Waits for semaphore to be available.
    *
-   * @returns A function that releases the semaphore.
+   * @returns A function that releases semaphore.
    */
   public async acquire(): Promise<() => void> {
     await this.queue.onEmpty();
