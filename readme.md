@@ -13,9 +13,8 @@ npm install @sadzurami/std-lib
 `main.ts`
 
 ```ts
-import { raedConfig } from '@sadzurami/std-lib/config';
-import { readProxies } from '@sadzurami/std-lib/proxy';
 import { readSessions } from '@sadzurami/std-lib/steam';
+import { readConfig, readProxies } from '@sadzurami/std-lib/resources';
 
 (async () => {
   const config = await readConfig('path/to/config.json');
