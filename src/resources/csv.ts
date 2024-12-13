@@ -1,6 +1,7 @@
 import fs from 'fs-extra';
+import path from 'path';
 
-import { ReadCsvOptions } from './types/csv.types';
+import { ReadCsvOptions, SaveCsvOptions } from './types/csv.types';
 
 export async function readCsv<T>(file: string, options?: ReadCsvOptions): Promise<T[]> {
   options = { ensure: true, convert: true, ...options };
@@ -31,12 +32,23 @@ export async function readCsv<T>(file: string, options?: ReadCsvOptions): Promis
   return data;
 }
 
-export async function saveCsv<T>(file: string, data: T[]) {
+export async function saveCsv<T>(file: string, data: T[], options?: SaveCsvOptions) {
+  options = { ensure: true, ...options };
+
   try {
     const keys: string[] = Object.keys(data[0]);
 
     const header: string = keys.join(';');
-    const entries: string[] = data.map((object) => keys.map((key) => object[key]).join(';'));
+    const entries: string[] = data.map((object) =>
+      keys
+        .map((key) => {
+          const value = object[key];
+          return typeof value === 'object' && value !== null ? JSON.stringify(value) : value;
+        })
+        .join(';'),
+    );
+
+    if (options.ensure) await fs.ensureDir(path.dirname(file));
 
     await fs.writeFile(file, [header, ...entries].join('\n'));
   } catch (error) {
