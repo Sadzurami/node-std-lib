@@ -2,6 +2,7 @@ import fs, { Dirent } from 'fs-extra';
 import PQueue from 'p-queue';
 import path from 'path';
 
+import { getSessionExpiryDate } from './helpers';
 import { Account } from './interfaces/account.interface';
 import { Secret } from './interfaces/secret.interface';
 import { Session } from './interfaces/session.interface';
@@ -14,6 +15,7 @@ import {
 
 export async function readSessions(dir: string, options?: ReadSessionsOptions): Promise<Session[]> {
   options = { ensure: true, ...options };
+  const validate = { version: { min: 2 }, expired: true, ...options.validate };
 
   let entries: Dirent[] = [];
   try {
@@ -36,8 +38,14 @@ export async function readSessions(dir: string, options?: ReadSessionsOptions): 
 
         if (typeof session !== 'object') return;
 
-        if (typeof session.SchemaVersion !== 'number' || session.SchemaVersion < 2) return;
-        if (typeof session.ExpiryDate && new Date(session.ExpiryDate) < new Date()) return;
+        if (validate.version) {
+          if (typeof session.SchemaVersion !== 'number') return;
+
+          if (validate.version.min && session.SchemaVersion >= validate.version.min) return;
+          if (validate.version.max && session.SchemaVersion <= validate.version.max) return;
+        }
+
+        if (validate.expired && getSessionExpiryDate(session) < new Date()) return;
 
         sessions.set(session.Username.toLowerCase(), session);
       } catch (error) {}
