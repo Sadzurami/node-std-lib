@@ -83,6 +83,7 @@ export async function readAccounts(file: string, options?: ReadAccountsOptions):
 
 export async function readSecrets(dir: string, options?: ReadSecretsOptions): Promise<Secret[]> {
   options = { ensure: true, ...options };
+  const filesRegexp = /\.mafile$|\.db$/i;
 
   let entries: Dirent[] = [];
   try {
@@ -90,7 +91,7 @@ export async function readSecrets(dir: string, options?: ReadSecretsOptions): Pr
     entries = await fs.readdir(dir, { withFileTypes: true });
   } catch (error) {}
 
-  entries = entries.filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.mafile'));
+  entries = entries.filter((entry) => entry.isFile() && filesRegexp.test(entry.name));
   if (entries.length === 0) return [];
 
   const secrets: Map<string, Secret> = new Map();
@@ -103,15 +104,16 @@ export async function readSecrets(dir: string, options?: ReadSecretsOptions): Pr
         let content = await fs.readFile(file, 'utf8').catch(() => '');
         content = content.replace(/},\s*}/g, '}}').replace(/'/g, '"');
 
-        const mafile = JSON.parse(content) as Record<string, any>;
+        let entry = JSON.parse(content) as Record<string, any>;
+        if (typeof entry !== 'object') return;
 
-        if (typeof mafile !== 'object') return;
-        if (!mafile.shared_secret || !mafile.identity_secret) return;
+        entry = entry['_MobileAuthenticator'] ? entry['_MobileAuthenticator'] : entry;
+        if (!entry.shared_secret || !entry.identity_secret) return;
 
         const secret: Secret = {
-          username: mafile.account_name || path.basename(file).replace(/\.mafile$/i, ''),
-          sharedSecret: mafile.shared_secret,
-          identitySecret: mafile.identity_secret,
+          username: entry.account_name || path.basename(file).replace(filesRegexp, ''),
+          sharedSecret: entry.shared_secret,
+          identitySecret: entry.identity_secret,
         };
 
         secrets.set(secret.username.toLowerCase(), secret);
