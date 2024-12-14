@@ -104,16 +104,16 @@ export async function readSecrets(dir: string, options?: ReadSecretsOptions): Pr
         let content = await fs.readFile(file, 'utf8').catch(() => '');
         content = content.replace(/},\s*}/g, '}}').replace(/'/g, '"');
 
-        let entry = JSON.parse(content) as Record<string, any>;
-        if (typeof entry !== 'object') return;
+        let json = JSON.parse(content) as Record<string, any>;
+        if (typeof json !== 'object') return;
 
-        entry = entry['_MobileAuthenticator'] ? entry['_MobileAuthenticator'] : entry;
-        if (!entry.shared_secret || !entry.identity_secret) return;
+        json = json['_MobileAuthenticator'] ? json['_MobileAuthenticator'] : json;
+        if (!json.shared_secret || !json.identity_secret) return;
 
         const secret: Secret = {
-          username: entry.account_name || path.basename(file).replace(filesRegexp, ''),
-          sharedSecret: entry.shared_secret,
-          identitySecret: entry.identity_secret,
+          username: json.account_name || path.basename(file).replace(filesRegexp, ''),
+          sharedSecret: json.shared_secret,
+          identitySecret: json.identity_secret,
         };
 
         secrets.set(secret.username.toLowerCase(), secret);
