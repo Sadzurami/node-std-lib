@@ -63,10 +63,11 @@ function convertValue(value: string): any {
   if (value === 'null') return null;
   if (value === 'undefined') return undefined;
 
+  if (value.includes(',')) return value.split(',').map(convertValue);
+
   const date = new Date(value);
   if (!isNaN(date.getTime())) return date;
 
-  if (value.includes(',')) return value.split(',').map(convertValue);
   if (!isNaN(Number(value))) return Number(value);
 
   return value;
