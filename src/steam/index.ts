@@ -1,4 +1,5 @@
 export * from './helpers';
+export * from './desktop';
 export * from './resources';
 
 export * from './types/resources.types';
