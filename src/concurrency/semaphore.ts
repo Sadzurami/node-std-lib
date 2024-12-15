@@ -65,11 +65,11 @@ export class Semaphore {
    */
   public async acquire(): Promise<() => void> {
     let release: () => void;
+
     const promise = new Promise<void>((resolve) => (release = resolve));
-
     this.queue.add(() => promise);
-    await this.queue.onEmpty();
 
+    await this.queue.onEmpty();
     return release;
   }
 }
