@@ -41,8 +41,8 @@ export async function readSessions(dir: string, options?: ReadSessionsOptions): 
         if (validate.version) {
           if (typeof session.SchemaVersion !== 'number') return;
 
-          if (validate.version.min && session.SchemaVersion >= validate.version.min) return;
-          if (validate.version.max && session.SchemaVersion <= validate.version.max) return;
+          if (validate.version.min && session.SchemaVersion < validate.version.min) return;
+          if (validate.version.max && session.SchemaVersion > validate.version.max) return;
         }
 
         if (validate.expired && getSessionExpiryDate(session) < new Date()) return;
