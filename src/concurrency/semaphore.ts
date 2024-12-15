@@ -64,12 +64,12 @@ export class Semaphore {
    * @returns A function that releases semaphore.
    */
   public async acquire(): Promise<() => void> {
-    await this.queue.onEmpty();
-
     let release: () => void;
     const promise = new Promise<void>((resolve) => (release = resolve));
 
     this.queue.add(() => promise);
+    await this.queue.onEmpty();
+
     return release;
   }
 }
