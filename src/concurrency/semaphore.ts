@@ -1,6 +1,6 @@
 import PQueue from 'p-queue';
 
-import { SemaphoreOptions } from './types/semaphore.types';
+import { SemaphoreOptions, SemaphorePermit } from './types/semaphore.types';
 
 export class Semaphore {
   private readonly queue: PQueue;
@@ -13,7 +13,7 @@ export class Semaphore {
    * Returns `true` if semaphore is free, `false` otherwise.
    */
   public get free() {
-    return this.queue.size === 0 && this.queue.pending < this.concurrency;
+    return this.size < this.concurrency;
   }
 
   /**
@@ -61,15 +61,15 @@ export class Semaphore {
   /**
    * Waits for semaphore to be available.
    *
-   * @returns A function that releases semaphore.
+   * @returns Semaphore permit.
    */
-  public async acquire(): Promise<() => void> {
-    let release: () => void;
+  public async acquire(): Promise<SemaphorePermit> {
+    const release = await new Promise<() => void>((resolve) => {
+      this.queue.add(async () => {
+        await new Promise<void>((done) => resolve(() => done()));
+      });
+    });
 
-    const promise = new Promise<void>((resolve) => (release = resolve));
-    this.queue.add(() => promise);
-
-    await this.queue.onEmpty();
-    return release;
+    return { release };
   }
 }

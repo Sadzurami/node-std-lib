@@ -6,3 +6,10 @@ export type SemaphoreOptions = {
    */
   concurrency?: number;
 };
+
+export type SemaphorePermit = {
+  /**
+   * Release the semaphore.
+   */
+  release: () => void;
+};
