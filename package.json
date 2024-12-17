@@ -14,32 +14,14 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "*.js",
+    "*.d.ts",
+    "core/**/*.js",
+    "core/**/*.d.ts"
   ],
-  "exports": {
-    "./concurrency": {
-      "require": "./dist/concurrency.js",
-      "import": "./dist/concurrency.js",
-      "types": "./dist/concurrency.d.ts"
-    },
-    "./resources": {
-      "require": "./dist/resources.js",
-      "import": "./dist/resources.js",
-      "types": "./dist/resources.d.ts"
-    },
-    "./process": {
-      "require": "./dist/process.js",
-      "import": "./dist/process.js",
-      "types": "./dist/process.d.ts"
-    },
-    "./steam": {
-      "require": "./dist/steam.js",
-      "import": "./dist/steam.js",
-      "types": "./dist/steam.d.ts"
-    }
-  },
   "scripts": {
-    "build": "del-cli dist && tsc",
+    "build": "npm run clean && tsc --outDir .",
+    "clean": "node scripts/del-dist.js",
     "prepare": "npm run build"
   },
   "dependencies": {
