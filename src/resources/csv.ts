@@ -36,17 +36,26 @@ export async function saveCsv<T>(file: string, data: T[], options?: SaveCsvOptio
   options = { ensure: true, ...options };
 
   try {
-    const keys: string[] = Object.keys(data[0]);
+    const keys: Set<string> = new Set();
+    for (const object of data) for (const key in Object.keys(object)) keys.add(key);
 
-    const header: string = keys.join(';');
-    const entries: string[] = data.map((object) =>
-      keys
-        .map((key) => {
-          const value = object[key];
-          return typeof value === 'object' && value !== null ? JSON.stringify(value) : value;
-        })
-        .join(';'),
-    );
+    const header: string = [...keys].join(';');
+    const entries: string[] = [];
+
+    for (const object of data) {
+      const entry = [...keys].map((key) => {
+        const value = object[key];
+
+        if (Array.isArray(value)) return value.join(',');
+        if (value === null || value === undefined) return '';
+        if (value instanceof Date) return value.toISOString();
+        if (typeof value === 'object') return JSON.stringify(value);
+
+        return value.toString();
+      });
+
+      entries.push(entry.join(';'));
+    }
 
     if (options.ensure) await fs.ensureDir(path.dirname(file));
 
