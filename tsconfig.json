@@ -1,5 +1,5 @@
 {
   "extends": "@sadzurami/ts-config",
-  "include": ["."],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }

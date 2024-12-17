@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const distDirectory = path.join(__dirname, '..');
-const ignoreEntries = ['node_modules', 'scripts'];
+const ignoreEntries = ['src', 'scripts', 'node_modules'];
 
 main();
 async function main() {
