@@ -3,19 +3,19 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-const distDirectory = process.cwd();
-const ignoreEntries = ['node_modules', '.eslintrc.js'];
+const distDirectory = path.join(__dirname, '..');
+const ignoreEntries = ['node_modules', 'scripts'];
 
 main();
 async function main() {
   const files = await readDirectory(distDirectory);
 
-  for (const file of files) {
-    const parsed = path.parse(file);
+  for (const entry of files) {
+    if (path.basename(entry).startsWith('.')) continue;
 
-    if (ignoreEntries.includes(parsed.base)) continue;
+    if (ignoreEntries.some((el) => entry.includes(el))) continue;
 
-    if (parsed.ext === '.js' || parsed.ext === '.d.ts') await fs.remove(file).catch(console.error);
+    if (entry.endsWith('.js') || entry.endsWith('.d.ts')) await fs.remove(entry).catch(console.error);
   }
 }
 
@@ -27,13 +27,15 @@ async function readDirectory(entry) {
     for (const file of files) {
       if (file.isDirectory()) {
         const entries = await readDirectory(path.join(entry, file.name));
+
         results.push(...entries);
-      } else results.push(path.join(entry, file.name));
+      } else {
+        results.push(path.join(entry, file.name));
+      }
     }
 
     return results;
   } catch (error) {
-    console.error('Failed to read directory:', entry);
     return [];
   }
 }
