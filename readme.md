@@ -10,8 +10,6 @@ npm install @sadzurami/std-lib
 
 ## Usage
 
-`main.ts`
-
 ```ts
 import { readSessions } from '@sadzurami/std-lib/steam';
 import { readConfig, readProxies } from '@sadzurami/std-lib/resources';
