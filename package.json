@@ -18,24 +18,24 @@
   ],
   "exports": {
     "./concurrency": {
-      "require": "./dist/concurrency/index.js",
-      "import": "./dist/concurrency/index.js",
-      "types": "./dist/concurrency/index.d.ts"
+      "require": "./dist/concurrency.js",
+      "import": "./dist/concurrency.js",
+      "types": "./dist/concurrency.d.ts"
     },
     "./resources": {
-      "require": "./dist/resources/index.js",
-      "import": "./dist/resources/index.js",
-      "types": "./dist/resources/index.d.ts"
+      "require": "./dist/resources.js",
+      "import": "./dist/resources.js",
+      "types": "./dist/resources.d.ts"
     },
     "./process": {
-      "require": "./dist/process/index.js",
-      "import": "./dist/process/index.js",
-      "types": "./dist/process/index.d.ts"
+      "require": "./dist/process.js",
+      "import": "./dist/process.js",
+      "types": "./dist/process.d.ts"
     },
     "./steam": {
-      "require": "./dist/steam/index.js",
-      "import": "./dist/steam/index.js",
-      "types": "./dist/steam/index.d.ts"
+      "require": "./dist/steam.js",
+      "import": "./dist/steam.js",
+      "types": "./dist/steam.d.ts"
     }
   },
   "scripts": {
