@@ -46,9 +46,7 @@ export async function saveCsv<T>(file: string, data: T[], options?: SaveCsvOptio
       const entry = [...keys].map((key) => {
         const value = object[key];
 
-        if (Array.isArray(value)) return value.join(',');
         if (value === null || value === undefined) return '';
-        if (value instanceof Date) return value.toISOString();
         if (typeof value === 'object') return JSON.stringify(value);
 
         return value.toString();
@@ -66,18 +64,18 @@ export async function saveCsv<T>(file: string, data: T[], options?: SaveCsvOptio
 }
 
 function convertValue(value: string): any {
-  if (value === 'true') return true;
-  if (value === 'false') return false;
-
+  if (value === '') return null;
   if (value === 'null') return null;
   if (value === 'undefined') return undefined;
 
-  if (value.includes(',')) return value.split(',').map(convertValue);
-
-  const date = new Date(value);
-  if (!isNaN(date.getTime())) return date;
+  if (value === 'true') return true;
+  if (value === 'false') return false;
 
   if (!isNaN(Number(value))) return Number(value);
+
+  try {
+    return JSON.parse(value);
+  } catch (error) {}
 
   return value;
 }
