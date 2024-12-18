@@ -8,30 +8,30 @@ const ignoreEntries = ['src', 'scripts', 'node_modules'];
 
 main();
 async function main() {
-  const files = await readDirectory(distDirectory);
+  await fs.rm(path.join(distDirectory, 'core'), { recursive: true, force: true });
 
-  for (const entry of files) {
+  for (const entry of await readDirectory(distDirectory, false)) {
     if (path.basename(entry).startsWith('.')) continue;
 
     if (ignoreEntries.some((el) => entry.includes(el))) continue;
 
-    if (entry.endsWith('.js') || entry.endsWith('.d.ts')) await fs.remove(entry).catch(console.error);
+    if (['.js', '.d.ts', '.map'].some((ext) => entry.endsWith(ext))) await fs.rm(entry, { force: true });
   }
 }
 
-async function readDirectory(entry) {
+async function readDirectory(entry, recursive = true) {
   try {
     const files = await fs.readdir(entry, { withFileTypes: true });
     const results = [];
 
     for (const file of files) {
-      if (file.isDirectory()) {
+      if (file.isDirectory() && recursive) {
         const entries = await readDirectory(path.join(entry, file.name));
 
         results.push(...entries);
-      } else {
-        results.push(path.join(entry, file.name));
       }
+
+      if (file.isFile()) results.push(path.join(entry, file.name));
     }
 
     return results;
