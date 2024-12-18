@@ -27,7 +27,7 @@ export async function readSessions(dir: string, options?: ReadSessionsOptions): 
   if (entries.length === 0) return [];
 
   const sessions: Map<string, Session> = new Map();
-  const files = entries.map((entry) => path.join(entry.parentPath, entry.name));
+  const files = entries.map((entry) => path.join(dir, entry.name));
 
   const queue = new PQueue({ concurrency: 512 });
   await queue.addAll(
@@ -95,7 +95,7 @@ export async function readSecrets(dir: string, options?: ReadSecretsOptions): Pr
   if (entries.length === 0) return [];
 
   const secrets: Map<string, Secret> = new Map();
-  const files = entries.map((entry) => path.join(entry.parentPath, entry.name));
+  const files = entries.map((entry) => path.join(dir, entry.name));
 
   const queue = new PQueue({ concurrency: 512 });
   await queue.addAll(
