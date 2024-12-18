@@ -1,8 +1,9 @@
 node_modules
 yarn.lock
-dist
+.DS_Store
 
+/dist
+/core
 /*.js
+/*.ts
 /*.d.ts
-/core/**/*.js
-/core/**/*.d.ts
