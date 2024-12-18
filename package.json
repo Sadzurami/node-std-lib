@@ -34,7 +34,6 @@
     "@sadzurami/ts-config": "^1.0.1",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^18",
-    "del-cli": "^6.0.0",
     "eslint": "^8",
     "prettier": "^3.4.2",
     "typescript": "^5.5.4"
