@@ -1,5 +1,8 @@
 {
   "extends": "@sadzurami/ts-config",
+  "compilerOptions": {
+    "outDir": "."
+  },
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "core", "scripts"]
 }
