@@ -15,7 +15,9 @@ import {
 
 export async function readSessions(dir: string, options?: ReadSessionsOptions): Promise<Session[]> {
   options = { ensure: true, ...options };
-  const validate = { version: { min: 2 }, expired: true, ...options.validate };
+
+  let { validate } = options;
+  validate = { version: { min: 2 }, expiry: true, ...validate };
 
   let entries: Dirent[] = [];
   try {
@@ -45,7 +47,7 @@ export async function readSessions(dir: string, options?: ReadSessionsOptions): 
           if (validate.version.max && session.SchemaVersion > validate.version.max) return;
         }
 
-        if (validate.expired && getSessionExpiryDate(session) < new Date()) return;
+        if (validate.expiry && getSessionExpiryDate(session) < new Date()) return;
 
         sessions.set(session.Username.toLowerCase(), session);
       } catch (error) {}
