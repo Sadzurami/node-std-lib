@@ -44,7 +44,7 @@ export type ValidateSessionOptions = {
    *
    * @default true
    */
-  expired?: boolean;
+  expiry?: boolean;
 };
 
 export type MoveSessionOptions = {
