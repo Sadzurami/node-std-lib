@@ -6,7 +6,7 @@ import { ReadConfigOptions } from './types/config.types';
 export async function readConfig<T>(file: string, _default: T, options?: ReadConfigOptions) {
   options = { ensure: true, ...options };
 
-  const config: T & { origin?: string } = _default as T & { origin?: string };
+  let config: T & { origin?: string } = _default as T & { origin?: string };
 
   try {
     if (options.ensure) {
@@ -18,12 +18,8 @@ export async function readConfig<T>(file: string, _default: T, options?: ReadCon
     config.origin = content === JSON.stringify(config, null, 2) ? 'default' : 'custom';
 
     const candidate = JSON.parse(content) as Record<string, any>;
-    for (const key of Object.keys(config)) {
-      if (!Object.hasOwn(candidate, key)) continue;
-      if (config[key] === candidate[key]) continue;
 
-      config[key] = candidate[key];
-    }
+    config = { ...config, ...candidate };
   } catch (error) {}
 
   return { ...config, origin: config.origin || 'default' };
