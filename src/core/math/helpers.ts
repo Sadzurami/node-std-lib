@@ -1,5 +1,5 @@
 /**
- * Returns a random number between min (inclusive) and max (exclusive).
+ * Returns a random number between `min` (inclusive) and `max` (exclusive).
  *
  * If no arguments are provided, defaults to a float between 0 and 1.
  *
@@ -21,7 +21,7 @@ export function random(min?: number, max?: number, float: boolean = true): numbe
 }
 
 /**
- * Returns a random number between min (inclusive) and max (exclusive).
+ * Returns a random number between `min` (inclusive) and `max` (exclusive).
  *
  * If no arguments are provided, defaults to integer between 0 and 100.
  *
